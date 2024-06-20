@@ -1,6 +1,5 @@
 ﻿using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
 using BAYSOFT.Middleware.AddServices;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,7 @@ using System.Reflection;
 
 namespace BAYSOFT.Middleware
 {
-    public static class Configurations
+	public static class Configurations
     {
         public static IServiceCollection AddMiddleware(this IServiceCollection services, IConfiguration configuration, Assembly presentationAssembly)
         {
@@ -32,7 +31,8 @@ namespace BAYSOFT.Middleware
                 .AddMinimumReturnedCollectionSize(1)
                 .AddMaximumReturnedCollectionSize(100)
                 .AddQueryTermsMinimumSize(3)
-                .AddSuppressedTerms(new string[] { "the" });
+                .AddSuppressedTerms(new string[] { "the" })
+				.AddByDefaultInStringSeparator("|");
 
             // YOUR CODE GOES HERE
             return services;
