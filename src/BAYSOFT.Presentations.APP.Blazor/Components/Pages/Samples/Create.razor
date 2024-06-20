@@ -1,0 +1,62 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
+@using MediatR
+@using System.Net
+@page "/samples/create"
+@rendermode InteractiveServer
+@inject IMediator mediator
+@inject NavigationManager Navigation
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Cadastro sample</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Description" Variant="Variant.Outlined" @bind-Value="model.Description" For="@(() => model.Description)" AutoFocus="true"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Default" @onclick="@((e)=>Navigation.NavigateTo("/samples"))" />
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Salvar</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    SampleForm model = new SampleForm();
+    bool success;
+
+    public class SampleForm
+    {
+        [Required(ErrorMessage = "{0} é obrigatório!")]
+        public string? Description { get; set; }
+    }
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        var command = new PostSampleCommand();
+
+        command.Project(model => model.Description = ((SampleForm)context.Model).Description);
+
+        var response = await mediator.Send(command);
+
+        if(response.StatusCode == ((int)HttpStatusCode.OK))
+        {
+            success = true;
+            StateHasChanged();
+            Navigation.NavigateTo("/samples");
+        }
+        else
+        {
+            
+        }
+    }
+}

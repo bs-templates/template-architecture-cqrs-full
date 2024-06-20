@@ -1,0 +1,123 @@
+﻿@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
+@using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities
+@using MediatR
+@using ModelWrapper.Extensions.GetModels
+@using ModelWrapper.Extensions.Pagination
+@page "/samples"
+@rendermode InteractiveServer
+@inject IMediator mediator
+@inject NavigationManager Navigation
+
+<MudTable Items="@Elements" FixedHeader="@fixed_header" FixedFooter="@fixed_footer" Height="@(fixed_header || fixed_footer ?"627px":"")" MultiSelection="@multi_select" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Sample, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem">
+	<ToolBarContent>
+		<MudText Typo="Typo.h6">Samples</MudText>
+		<MudSpacer />
+		<MudTextField @bind-Value="search" Placeholder="Digite sua consulta aqui..." Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" AutoFocus="true" Variant="Variant.Outlined"></MudTextField>
+		<MudSpacer />
+		<MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Primary" Edge="Edge.Start" @onclick="@(() => Navigation.NavigateTo("/samples/create"))" Title="Adicionar" />
+		@if (selectedItem != null)
+		{
+			<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Surface" Edge="Edge.Start" Title="Editar" />
+		}
+		@if (selectedItem != null)
+		{
+			<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Edge="Edge.Start" Title="Excluír" />
+		}
+	</ToolBarContent>
+	<ColGroup>
+		<col style="width: 48px;" />
+		<col />
+	</ColGroup>
+	<HeaderContent>
+		<MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Sample, object>(x=>x.Description)">Descrição</MudTableSortLabel></MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="Description">@context.Description</MudTd>
+	</RowTemplate>
+	<NoRecordsContent>
+		<MudText>No matching records found</MudText>
+	</NoRecordsContent>
+	<LoadingContent>
+		<MudText>Loading...</MudText>
+	</LoadingContent>
+	<PagerContent>
+		<MudTablePager />
+	</PagerContent>
+</MudTable>
+
+@code {
+	private bool fixed_header = true;
+	private bool fixed_footer = true;
+	private bool multi_select = true;
+	private bool dense = false;
+	private bool hover = true;
+	private bool striped = false;
+	private bool bordered = false;
+	private string search = "";
+	private GetSamplesByFilterQuery query = new GetSamplesByFilterQuery();
+	private Sample selectedItem = null;
+	private HashSet<Sample> selectedItems = new HashSet<Sample>();
+
+	private int totalItems;
+	private MudTable<Sample> table;
+
+	private IEnumerable<Sample> Elements = new List<Sample>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		var response = await mediator.Send(query);
+		Elements = response.GetModels();
+	}
+
+	private bool FilterFunc1(Sample element) => FilterFunc(element, search);
+
+	private bool FilterFunc(Sample element, string search)
+	{
+		if (string.IsNullOrWhiteSpace(search))
+			return true;
+		if (element.Description.Contains(search, StringComparison.OrdinalIgnoreCase))
+			return true;
+		return false;
+	}
+
+	private int totalItems;
+	private string searchString = null;
+
+	/// <summary>
+	/// Here we simulate getting the paged, filtered and ordered data from the server
+	/// </summary>
+	private async Task<TableData<Sample>> ServerReload(TableState state)
+	{
+		
+
+		var response = await mediator.Send(query);
+		
+		switch (state.SortLabel)
+		{
+			case "nr_field":
+				data = data.OrderByDirection(state.SortDirection, o => o.Number);
+				break;
+			case "sign_field":
+				data = data.OrderByDirection(state.SortDirection, o => o.Sign);
+				break;
+			case "name_field":
+				data = data.OrderByDirection(state.SortDirection, o => o.Name);
+				break;
+			case "position_field":
+				data = data.OrderByDirection(state.SortDirection, o => o.Position);
+				break;
+			case "mass_field":
+				data = data.OrderByDirection(state.SortDirection, o => o.Molar);
+				break;
+		}
+
+		pagedData = data.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray();
+		return new TableData<Sample>() { TotalItems = (int)response.ResultCount, Items = response.GetModels() };
+	}
+
+	private void OnSearch(string text)
+	{
+		searchString = text;
+		table.ReloadServerData();
+	}
+}
