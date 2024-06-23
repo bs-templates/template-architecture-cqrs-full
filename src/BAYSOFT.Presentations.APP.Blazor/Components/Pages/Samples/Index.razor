@@ -1,38 +1,47 @@
-﻿@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
+﻿@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
+@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
 @using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities
+@using BAYSOFT.Presentations.APP.Blazor.Components.Helpers
 @using MediatR
 @using ModelWrapper.Extensions.GetModels
+@using ModelWrapper.Extensions.Search
 @using ModelWrapper.Extensions.Pagination
+@using ModelWrapper.Extensions.Ordination
 @page "/samples"
 @rendermode InteractiveServer
-@inject IMediator mediator
 @inject NavigationManager Navigation
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject IMediator Mediator
 
-<MudTable Items="@Elements" FixedHeader="@fixed_header" FixedFooter="@fixed_footer" Height="@(fixed_header || fixed_footer ?"627px":"")" MultiSelection="@multi_select" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<Sample, bool>(FilterFunc1)" @bind-SelectedItem="selectedItem">
+<MudTable
+	ServerData="@(new Func<TableState, Task<TableData<Sample>>>(ServerReload))" @ref="table"
+	FixedHeader="@fixed_header" FixedFooter="@fixed_footer" Height="@(fixed_header || fixed_footer ?"627px":"")"
+		  MultiSelection="@multi_select" @bind-SelectedItems="selectedItems" @bind-SelectOnRowClick="@select_on_row_click"
+	Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped">
 	<ToolBarContent>
 		<MudText Typo="Typo.h6">Samples</MudText>
 		<MudSpacer />
-		<MudTextField @bind-Value="search" Placeholder="Digite sua consulta aqui..." Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" AutoFocus="true" Variant="Variant.Outlined"></MudTextField>
+		<MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Digite sua consulta aqui..." Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" AutoFocus="true" Variant="Variant.Outlined"></MudTextField>
 		<MudSpacer />
-		<MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Primary" Edge="Edge.Start" @onclick="@(() => Navigation.NavigateTo("/samples/create"))" Title="Adicionar" />
-		@if (selectedItem != null)
+		<MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Primary" Edge="Edge.Start" @onclick="Add" Title="Adicionar" />
+		@if (selectedItems != null && selectedItems.Count == 1)
 		{
-			<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Surface" Edge="Edge.Start" Title="Editar" />
+			<MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Surface" Edge="Edge.Start" @onclick="Edit" Title="Editar" />
 		}
-		@if (selectedItem != null)
+		@if (selectedItems != null && selectedItems.Count > 0)
 		{
-			<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Edge="Edge.Start" Title="Excluír" />
+			<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Edge="Edge.Start" Title="Excluír" @onclick="Delete" />
 		}
 	</ToolBarContent>
 	<ColGroup>
 		<col style="width: 48px;" />
-		<col />
 	</ColGroup>
 	<HeaderContent>
-		<MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Sample, object>(x=>x.Description)">Descrição</MudTableSortLabel></MudTh>
+		<MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Description" T="Sample">Descrição</MudTableSortLabel></MudTh>
 	</HeaderContent>
 	<RowTemplate>
-		<MudTd DataLabel="Description">@context.Description</MudTd>
+		<MudTd DataLabel="Descrição">@context.Description</MudTd>
 	</RowTemplate>
 	<NoRecordsContent>
 		<MudText>No matching records found</MudText>
@@ -53,71 +62,80 @@
 	private bool hover = true;
 	private bool striped = false;
 	private bool bordered = false;
+	private bool select_on_row_click = true;
+
 	private string search = "";
-	private GetSamplesByFilterQuery query = new GetSamplesByFilterQuery();
-	private Sample selectedItem = null;
-	private HashSet<Sample> selectedItems = new HashSet<Sample>();
 
-	private int totalItems;
+	private GetSamplesByFilterQuery query;
 	private MudTable<Sample> table;
-
-	private IEnumerable<Sample> Elements = new List<Sample>();
+	private HashSet<Sample> selectedItems;
 
 	protected override async Task OnInitializedAsync()
 	{
-		var response = await mediator.Send(query);
-		Elements = response.GetModels();
+		query = new GetSamplesByFilterQuery();
 	}
-
-	private bool FilterFunc1(Sample element) => FilterFunc(element, search);
-
-	private bool FilterFunc(Sample element, string search)
-	{
-		if (string.IsNullOrWhiteSpace(search))
-			return true;
-		if (element.Description.Contains(search, StringComparison.OrdinalIgnoreCase))
-			return true;
-		return false;
-	}
-
-	private int totalItems;
-	private string searchString = null;
 
 	/// <summary>
 	/// Here we simulate getting the paged, filtered and ordered data from the server
 	/// </summary>
 	private async Task<TableData<Sample>> ServerReload(TableState state)
 	{
-		
+		if (!string.IsNullOrWhiteSpace(search))
+			query.SetSearch(search);
+		else
+			query.ClearSearch();
 
-		var response = await mediator.Send(query);
-		
-		switch (state.SortLabel)
-		{
-			case "nr_field":
-				data = data.OrderByDirection(state.SortDirection, o => o.Number);
-				break;
-			case "sign_field":
-				data = data.OrderByDirection(state.SortDirection, o => o.Sign);
-				break;
-			case "name_field":
-				data = data.OrderByDirection(state.SortDirection, o => o.Name);
-				break;
-			case "position_field":
-				data = data.OrderByDirection(state.SortDirection, o => o.Position);
-				break;
-			case "mass_field":
-				data = data.OrderByDirection(state.SortDirection, o => o.Molar);
-				break;
-		}
+		query.SetOrdination(state.SortDirection.ToDescriptionString(), state.SortLabel);
+		query.SetPagination(state.PageSize, state.Page + 1);
 
-		pagedData = data.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray();
+		var response = await Mediator.Send(query);
+
+		selectedItems = new HashSet<Sample>();
+
+		response.HandleNotifications(Snackbar, false);
+
 		return new TableData<Sample>() { TotalItems = (int)response.ResultCount, Items = response.GetModels() };
 	}
 
 	private void OnSearch(string text)
 	{
-		searchString = text;
+		search = text;
 		table.ReloadServerData();
+	}
+
+	private void Add()
+	{
+		Navigation.NavigateTo("/samples/create");
+	}
+
+	private void Edit()
+	{
+		Navigation.NavigateTo($"/samples/{selectedItems.ToList().FirstOrDefault()?.Id}");
+	}
+	private async Task Delete()
+	{
+		var parameters = new DialogParameters<Dialog>();
+		parameters.Add(x => x.ContentText, "Do you really want to delete these records? This process cannot be undone.");
+		parameters.Add(x => x.ButtonConfirmText, "Delete");
+		parameters.Add(x => x.Color, Color.Error);
+
+		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, ClassBackground = "dialog-backdrop-blur" };
+
+		var dialog = await DialogService.ShowAsync<Dialog>("Delete", parameters, options);
+		var result = await dialog.Result;
+		if (!result.Canceled)
+		{
+			foreach(var selectedItem in selectedItems.ToList())
+			{
+				var deleteCommand = new DeleteSampleCommand();
+				deleteCommand.Project(m => m.Id = selectedItem.Id);
+				var response = await Mediator.Send(deleteCommand);
+				if (response.HandleNotifications(Snackbar))
+				{
+					StateHasChanged();
+					await table.ReloadServerData();
+				}
+			}
+		}
 	}
 }

@@ -1,12 +1,26 @@
-﻿
-<MudAppBar></MudAppBar>
-<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-    <MudNavLink Href="/samples" Match="NavLinkMatch.Prefix">Samples</MudNavLink>
-    <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
-    <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudNavLink>
-    <MudNavGroup Title="Settings" Expanded="true">
-        <MudNavLink Href="/users" Match="NavLinkMatch.Prefix">Users</MudNavLink>
-        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">Security</MudNavLink>
-    </MudNavGroup>
+﻿<MudNavMenu Style="margin-top: 64px;">
+	<MudList Clickable="true">
+		<MudListItem Href="/" Match="NavLinkMatch.All" Style="margin: 0px;">
+			Dashboard
+		</MudListItem>
+		<MudDivider />
+		<MudListItem Href="/samples" Match="NavLinkMatch.Prefix">
+			Samples
+		</MudListItem>
+		<MudDivider />
+		<MudListItem Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudListItem>
+		<MudDivider />
+		<MudListItem Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudListItem>
+		<MudDivider />
+		<MudListItem Text="Settings" InitiallyExpanded="false">
+			<NestedList>
+				<MudDivider />
+				<MudListItem Href="/users" Match="NavLinkMatch.Prefix">Users</MudListItem>
+				<MudDivider />
+				<MudListItem Href="/security" Match="NavLinkMatch.Prefix">Security</MudListItem>
+			</NestedList>
+		</MudListItem>
+		<MudDivider />
+		<MudListItem Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudListItem>
+	</MudList>
 </MudNavMenu>

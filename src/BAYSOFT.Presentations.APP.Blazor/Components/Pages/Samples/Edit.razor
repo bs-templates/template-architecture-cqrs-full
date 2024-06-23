@@ -1,0 +1,85 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
+@using BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
+@using ModelWrapper.Extensions.GetModel
+@using MediatR
+
+@page "/samples/{id:int}"
+@rendermode InteractiveServer
+@inject IMediator mediator
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <MudCard>
+				<MudCardHeader>
+                    <CardHeaderActions>
+						<MudIconButton Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Default" @onclick="@((e)=>Navigation.NavigateTo("/samples"))" />
+					</CardHeaderActions>
+					<CardHeaderContent>
+						<MudText Typo="Typo.h6">Editar sample</MudText>
+					</CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Description" Variant="Variant.Outlined" @bind-Value="model.Description" For="@(() => model.Description)" AutoFocus="true" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Salvar</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    GetSampleByIdQuery query = new GetSampleByIdQuery();
+    SampleForm model = new SampleForm();
+    bool success;
+
+    public class SampleForm
+    {
+        public int Id { get; set; }
+        [Required(ErrorMessage = "{0} é obrigatório!")]
+        public string? Description { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        query.Project(m => m.Id = Id);
+        var response = await mediator.Send(query);
+
+        if (response.HandleNotifications(Snackbar, false))
+        {
+            var domain = response.GetModel();
+            model = new SampleForm() { Id = domain.Id ,Description = domain.Description };
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        var command = new PutSampleCommand();
+        var formModel = (SampleForm)context.Model;
+
+        command.Project(model => {
+            model.Id = formModel.Id;
+            model.Description = formModel.Description;
+        });
+
+        var response = await mediator.Send(command);
+
+        if (response.HandleNotifications(Snackbar))
+        {
+            success = true;
+            StateHasChanged();
+            Navigation.NavigateTo("/samples");
+        }
+    }
+}

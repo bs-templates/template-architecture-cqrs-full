@@ -40,7 +40,7 @@ namespace BAYSOFT.Middleware
 
         public static IApplicationBuilder UseMiddleware(this IApplicationBuilder app)
         {
-            var supportedCultures = new string[] { "en-US", "pt-BR" };
+            var supportedCultures = new string[] { "pt-BR" };
 
             var localizationOptions = new RequestLocalizationOptions()
                 .SetDefaultCulture(supportedCultures[0])
