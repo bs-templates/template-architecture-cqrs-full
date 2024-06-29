@@ -1,4 +1,5 @@
-﻿using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
+﻿using BAYSOFT.Abstractions.Core.Domain.Entities;
+using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
 using BAYSOFT.Middleware.AddServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -27,11 +28,13 @@ namespace BAYSOFT.Middleware
 			services.AddMediatR(options => options.RegisterServicesFromAssemblies(assemblyApplication, assemblyDomain, assemblyInfrastructuresServices));
 
 			services.AddModelWrapper()
-                .AddDefaultReturnedCollectionSize(10)
-                .AddMinimumReturnedCollectionSize(1)
-                .AddMaximumReturnedCollectionSize(100)
-                .AddQueryTermsMinimumSize(3)
-                .AddSuppressedTerms(new string[] { "the" })
+				.AddDefaultReturnedCollectionSize(10)
+				.AddMinimumReturnedCollectionSize(1)
+				.AddMaximumReturnedCollectionSize(100)
+				.AddQueryTermsMinimumSize(3)
+				.AddByDefaultLoadComplexProperties(true)
+				.AddEntityBaseType(typeof(IDomainEntityBase))
+				.AddSuppressedTerms(new string[] { "the" })
 				.AddByDefaultInStringSeparator("|");
 
             // YOUR CODE GOES HERE
