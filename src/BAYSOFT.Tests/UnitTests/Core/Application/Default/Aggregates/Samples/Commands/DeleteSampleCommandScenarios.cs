@@ -39,7 +39,7 @@ namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Co
 
 				command.Project(model =>
 				{
-					model.Id = 2;
+					model.Id = SamplesCollections.FromInt(2);
 				});
 
 				var result = await handler.Handle(command, default);

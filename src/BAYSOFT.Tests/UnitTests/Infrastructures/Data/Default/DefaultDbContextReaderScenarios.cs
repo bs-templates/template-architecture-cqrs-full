@@ -1,5 +1,6 @@
 ﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Tests.Helpers.Data.Default;
+using BAYSOFT.Tests.Helpers.Data.Default.Samples;
 
 namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 {
@@ -28,7 +29,7 @@ namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 				.SetupSamples()
 				.GetDbContextReader();
 
-			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == 1).ToList();
+			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == SamplesCollections.FromInt(1)).ToList();
 
 			Assert.IsNotNull(samples);
 			Assert.AreEqual(samples.Count, 1);
@@ -42,7 +43,7 @@ namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 				.SetupSamples()
 				.GetDbContextReader();
 
-			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == 1).SingleOrDefault();
+			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == SamplesCollections.FromInt(1)).SingleOrDefault();
 
 			Assert.IsNotNull(samples);
 		}
@@ -55,7 +56,7 @@ namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 				.SetupSamples()
 				.GetDbContextReader();
 
-			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == 999).SingleOrDefault();
+			var samples = defaultDbContextReader.Query<Sample>().Where(x => x.Id == SamplesCollections.FromInt(999)).SingleOrDefault();
 
 			Assert.IsNull(samples);
 		}

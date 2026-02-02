@@ -1,32 +1,23 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+
+using BAYSOFT.Abstractions.Core.Domain.Interfaces.Infrastructures.Data;
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Infrastructures.Data.Default.EntityMappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace BAYSOFT.Infrastructures.Data.Default
 {
-	public class DefaultDbContext : DbContext
+    public sealed class DefaultDbContext : DbContext
     {
+        public static string Schema => "DefaultDb";
+
         public DbSet<Sample> Samples { get; set; }
+        public DefaultDbContext() { }
+        public DefaultDbContext(DbContextOptions<DefaultDbContext> options) : base(options){ }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema(Schema);
 
-		protected DefaultDbContext()
-		{
-			if (Database.IsRelational())
-			{
-				Database.Migrate();
-			}
-		}
-		public DefaultDbContext(DbContextOptions<DefaultDbContext> options) : base(options)
-		{
-			if (Database.IsRelational())
-			{
-				Database.Migrate();
-			}
-		}
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			modelBuilder.HasDefaultSchema("dbo");
-
-			modelBuilder.ApplyConfiguration(new SampleMap());
-		}
-	}
+            modelBuilder.ApplyConfiguration(new SampleMap());
+        }
+    }
 }

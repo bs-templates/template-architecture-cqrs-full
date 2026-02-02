@@ -1,5 +1,6 @@
 ﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Tests.Helpers.Data.Default;
+using BAYSOFT.Tests.Helpers.Data.Default.Samples;
 
 namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 {
@@ -20,7 +21,7 @@ namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 				context.SaveChanges();
 
 				Assert.IsTrue(defaultDbContextReader.Query<Sample>().Any(x => x.Description == entity.Description));
-				Assert.IsTrue(entity.Id != 0);
+				Assert.IsTrue(entity.Id != SamplesCollections.FromInt(0));
 			}
 		}
 	}

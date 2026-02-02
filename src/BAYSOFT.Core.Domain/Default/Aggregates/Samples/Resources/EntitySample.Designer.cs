@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BAYSOFT.Core.Domain.Default.Resources {
+namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Resources {
     using System;
 
 
@@ -22,14 +22,14 @@ namespace BAYSOFT.Core.Domain.Default.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ContextDefault {
+    public class EntitySample {
 
         private static global::System.Resources.ResourceManager resourceMan;
 
         private static global::System.Globalization.CultureInfo resourceCulture;
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ContextDefault() {
+        internal EntitySample() {
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace BAYSOFT.Core.Domain.Default.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BAYSOFT.Builder.Core.Domain.Resources.ContextDefault", typeof(ContextDefault).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BAYSOFT.Builder.Core.Domain.Resources.EntitySample", typeof(EntitySample).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,18 +63,9 @@ namespace BAYSOFT.Core.Domain.Default.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Code.
         /// </summary>
-        public static string Sample {
+        public static string Description {
             get {
-                return ResourceManager.GetString("Sample", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        //   Consulta uma cadeia de caracteres localizada semelhante a Code.
-        /// </summary>
-        public static string Samples {
-            get {
-                return ResourceManager.GetString("Samples", resourceCulture);
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
     }

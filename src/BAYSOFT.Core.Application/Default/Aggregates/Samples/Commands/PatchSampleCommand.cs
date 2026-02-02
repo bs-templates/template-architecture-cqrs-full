@@ -5,6 +5,7 @@ using BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -13,30 +14,35 @@ using ModelWrapper;
 using ModelWrapper.Extensions.Patch;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 {
-	public class PatchSampleCommand : ApplicationRequest<Sample, PatchSampleCommandResponse>
+    public sealed class PatchSampleCommand : ApplicationRequest<Sample, PatchSampleCommandResponse>
     {
         public PatchSampleCommand()
         {
             ConfigKeys(x => x.Id);
 
-            // Configures supressed properties & response properties
-            //ConfigSuppressedProperties(x => x);
-            //ConfigSuppressedResponseProperties(x => x);
+            ConfigSuppressedProperties(x => x.Id);
+
+            // TODO: SUPPRESSED RESPONSE PROPERTIES
+
+            Validator.RuleFor(x => x.Id).NotEmpty().WithMessage("{0} is required!");
         }
     }
+
     public class PatchSampleCommandResponse : ApplicationResponse<Sample>
     {
-        public PatchSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple) : base(tuple)
+        public PatchSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple)
+            : base(tuple)
         {
         }
 
-        public PatchSampleCommandResponse(WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
-            : base(request, data, message, resultCount)
+        public PatchSampleCommandResponse(int statusCode, WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
+            : base(statusCode, request, data, message, resultCount)
         {
         }
     }
@@ -64,8 +70,6 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
             {
                 request.IsValid(Localizer, true);
 
-                long resultCount = 1;
-
                 var id = request.Project(x => x.Id);
 
                 var data = await Writer
@@ -85,7 +89,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 
                 await Mediator.Publish(new PatchSampleNotification(data));
 
-                return new PatchSampleCommandResponse(request, data, Localizer["Successful operation!"], resultCount);
+                return new PatchSampleCommandResponse((int)HttpStatusCode.OK, request, data, Localizer["Successful operation!"], 1);
             }
             catch (Exception exception)
             {

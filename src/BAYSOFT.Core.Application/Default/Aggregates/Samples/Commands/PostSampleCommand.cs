@@ -1,40 +1,47 @@
 using BAYSOFT.Abstractions.Core.Application;
+using BAYSOFT.Abstractions.Core.Domain.Exceptions;
 using BAYSOFT.Abstractions.Crosscutting.Helpers;
 using BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using ModelWrapper;
 using ModelWrapper.Extensions.Post;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 {
-	public class PostSampleCommand : ApplicationRequest<Sample, PostSampleCommandResponse>
+    public sealed class PostSampleCommand : ApplicationRequest<Sample, PostSampleCommandResponse>
     {
         public PostSampleCommand()
         {
             ConfigKeys(x => x.Id);
 
-            // Configures supressed properties & response properties
-            //ConfigSuppressedProperties(x => x);
-            //ConfigSuppressedResponseProperties(x => x);       
+            ConfigSuppressedProperties(x => x.Id);
+
+            // TODO: SUPPRESSED RESPONSE PROPERTIES
+
+            // TODO: COMMAND RULES
         }
     }
+
     public class PostSampleCommandResponse : ApplicationResponse<Sample>
     {
-        public PostSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple) : base(tuple)
+        public PostSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple)
+            : base(tuple)
         {
         }
 
-        public PostSampleCommandResponse(WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
-            : base(request, data, message, resultCount)
+        public PostSampleCommandResponse(int statusCode, WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
+            : base(statusCode, request, data, message, resultCount)
         {
         }
     }
@@ -70,7 +77,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 
                 await Mediator.Publish(new PostSampleNotification(data));
 
-                return new PostSampleCommandResponse(request, data, Localizer["Successful operation!"], 1);
+                return new PostSampleCommandResponse((int)HttpStatusCode.Created, request, data, Localizer["Successful operation!"], 1);
             }
             catch (Exception exception)
             {

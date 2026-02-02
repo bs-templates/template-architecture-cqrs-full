@@ -2,6 +2,7 @@ using BAYSOFT.Abstractions.Core.Application;
 using BAYSOFT.Abstractions.Crosscutting.Helpers;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -10,31 +11,35 @@ using ModelWrapper;
 using ModelWrapper.Extensions.FullSearch;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
 {
-    public class GetSamplesByFilterQuery : ApplicationRequest<Sample, GetSamplesByFilterQueryResponse>
+    public sealed class GetSamplesByFilterQuery : ApplicationRequest<Sample, GetSamplesByFilterQueryResponse>
     {
         public GetSamplesByFilterQuery()
         {
             ConfigKeys(x => x.Id);
 
-            // ConfigSuppressedProperties(x => x.Id);
-            // ConfigSuppressedResponseProperties(x => x.Id);
+            ConfigSuppressedProperties(x => x.Id);
 
-            //Validator.RuleFor(x => x.prop).NotEmpty().WithMessage("{0} is required!");
+            // TODO: SUPPRESSED RESPONSE PROPERTIES
+
+            // TODO: ByFilterQuery RULES
         }
     }
+
     public class GetSamplesByFilterQueryResponse : ApplicationResponse<Sample>
     {
-        public GetSamplesByFilterQueryResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple) : base(tuple)
+        public GetSamplesByFilterQueryResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple)
+            : base(tuple)
         {
         }
 
-        public GetSamplesByFilterQueryResponse(WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
-            : base(request, data, message, resultCount)
+        public GetSamplesByFilterQueryResponse(int statusCode, WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
+            : base(statusCode, request, data, message, resultCount)
         {
         }
     }
@@ -60,7 +65,9 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
         {
             try
             {
-                long resultCount = 0;
+                long resultCount = 1;
+
+                var id = request.Project(x => x.Id);
 
                 var data = await Reader
                     .Query<Sample>()
@@ -68,7 +75,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
                     .FullSearch(request, out resultCount)
                     .ToListAsync(cancellationToken);
 
-                return new GetSamplesByFilterQueryResponse(request, data, Localizer["Successful operation!"], resultCount);
+                return new GetSamplesByFilterQueryResponse((int)HttpStatusCode.OK, request, data, Localizer["Successful operation!"], resultCount);
             }
             catch (Exception exception)
             {
