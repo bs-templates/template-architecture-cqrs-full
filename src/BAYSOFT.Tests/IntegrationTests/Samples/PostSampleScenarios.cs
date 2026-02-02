@@ -24,7 +24,7 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 
 				var response = await client.PostAsync($"/api/samples", content);
 
-				Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+				Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
 			}
 		}
 		[TestMethod]

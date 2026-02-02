@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,16 +12,15 @@ namespace BAYSOFT.Infrastructures.Data.Default.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "dbo");
+                name: "DefaultDb");
 
             migrationBuilder.CreateTable(
                 name: "Samples",
-                schema: "dbo",
+                schema: "DefaultDb",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(512)", nullable: true)
+                    Id = table.Column<Guid>(type: "UNIQUEIDENTIFIER", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR(128)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace BAYSOFT.Infrastructures.Data.Default.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Samples",
-                schema: "dbo");
+                schema: "DefaultDb");
         }
     }
 }

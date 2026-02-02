@@ -15,7 +15,7 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 		{
 			var contextData = SamplesCollections.GetDefaultCollection();
 
-			var data = new Sample { Id = 2, Description = "Sample - 002 [alt]" };
+			var data = new Sample { Id = SamplesCollections.FromInt(2), Description = "Sample - 002 [alt]" };
 
 			using (var client = ServerHelper.Create().SetupData<DefaultDbContext, Sample>(contextData).CreateClient())
 			{
@@ -32,7 +32,7 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 		{
 			var contextData = SamplesCollections.GetDefaultCollection();
 
-			var data = new Sample { Id = 2, Description = "Sample - 001" };
+			var data = new Sample { Id = SamplesCollections.FromInt(2), Description = "Sample - 001" };
 
 			using (var client = ServerHelper.Create().SetupData<DefaultDbContext, Sample>(contextData).CreateClient())
 			{

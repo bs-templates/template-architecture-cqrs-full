@@ -16,7 +16,7 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 
 			using (var client = ServerHelper.Create().SetupData<DefaultDbContext, Sample>(contextData).CreateClient())
 			{
-				var response = await client.GetAsync($"/api/samples/1");
+				var response = await client.GetAsync($"/api/samples/{SamplesCollections.FromInt(1)}");
 
 				Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 			}

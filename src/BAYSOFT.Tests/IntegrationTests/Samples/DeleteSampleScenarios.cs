@@ -16,7 +16,7 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 
 			using (var client = ServerHelper.Create().SetupData<DefaultDbContext, Sample>(contextData).CreateClient())
 			{
-				var response = await client.DeleteAsync($"/api/samples/2");
+				var response = await client.DeleteAsync($"/api/samples/{SamplesCollections.FromInt(2)}");
 
 				Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 			}
@@ -24,11 +24,11 @@ namespace BAYSOFT.Tests.IntegrationTests.Samples
 		[TestMethod]
 		public async Task DELETE_Samples_Where_Sample_Doesnt_Exists_Should_Return_NotFound()
 		{
-			var contextData = SamplesCollections.GetDefaultCollection().Where(x => x.Id != 2);
+			var contextData = SamplesCollections.GetDefaultCollection().Where(x => x.Id != SamplesCollections.FromInt(2));
 
 			using (var client = ServerHelper.Create().SetupData<DefaultDbContext, Sample>(contextData).CreateClient())
 			{
-				var response = await client.DeleteAsync($"/api/samples/2");
+				var response = await client.DeleteAsync($"/api/samples/{SamplesCollections.FromInt(2)}");
 
 				Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 			}
