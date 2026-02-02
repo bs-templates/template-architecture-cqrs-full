@@ -1,4 +1,5 @@
-﻿using BAYSOFT.Abstractions.Core.Domain.Entities;
+
+using BAYSOFT.Abstractions.Core.Domain.Entities;
 using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
 using BAYSOFT.Middleware.AddServices;
 using Microsoft.AspNetCore.Builder;
@@ -28,28 +29,32 @@ namespace BAYSOFT.Middleware
 			services.AddMediatR(options => options.RegisterServicesFromAssemblies(assemblyApplication, assemblyDomain, assemblyInfrastructuresServices));
 
 			services.AddModelWrapper()
-				.AddDefaultReturnedCollectionSize(10)
+                .AddDefaultReturnedCollectionSize(10)
 				.AddMinimumReturnedCollectionSize(1)
-				.AddMaximumReturnedCollectionSize(100)
-				.AddQueryTermsMinimumSize(3)
+				.AddMaximumReturnedCollectionSize(500)
+				.AddQueryTermsMinimumSize(1)
 				.AddByDefaultLoadComplexProperties(true)
-				.AddEntityBaseType(typeof(IDomainEntityBase))
+				.AddEntityBaseType(typeof(DomainEntityBase))
 				.AddSuppressedTerms(new string[] { "the" })
 				.AddByDefaultInStringSeparator("|");
 
-            // YOUR CODE GOES HERE
-            return services;
+			services.AddInheritStringLocalizerFactory();
+
+			// YOUR CODE GOES HERE
+			return services;
         }
 
         public static IApplicationBuilder UseMiddleware(this IApplicationBuilder app)
         {
-            var supportedCultures = new string[] { "en-US", "pt-BR" };
+			app.UseMigrations();
+
+            var supportedCultures = new string[] { "pt-BR" };
 
             var localizationOptions = new RequestLocalizationOptions()
                 .SetDefaultCulture(supportedCultures[0])
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
-            
+
             app.UseRequestLocalization(localizationOptions);
 
             //app.UseAuthentication();
@@ -105,3 +110,4 @@ namespace BAYSOFT.Middleware
 		#endregion
 	}
 }
+

@@ -1,28 +1,46 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace BAYSOFT.Infrastructures.Data.Default.EntityMappings
 {
-	public class SampleMap : IEntityTypeConfiguration<Sample>
+    public sealed class SampleMap : IEntityTypeConfiguration<Sample>
     {
         public void Configure(EntityTypeBuilder<Sample> builder)
         {
-            builder
-                .Property<int>("Id")
-                .ValueGeneratedOnAdd()
-                .HasColumnType("int")
-                .UseIdentityColumn();
-
-            builder
-                .Property<string>("Description")
-                .HasColumnType("nvarchar(512)");
-
-            builder
-                .HasKey("Id");
-
+            #region Map Table
             builder
                 .ToTable("Samples");
-        }
+            #endregion
+
+            #region Map Primary Key
+            builder
+                .Property<Guid>(p => p.Id)
+                .HasColumnType("UNIQUEIDENTIFIER")
+                .HasColumnName("Id")
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn()
+                .IsRequired(true);
+
+            builder
+			    .HasKey(e => e.Id);
+			#endregion
+
+            #region Map Properties
+            builder
+                .Property<string>(e => e.Description)
+                .HasColumnType("NVARCHAR(128)")
+                .HasColumnName("Description")
+                .IsRequired(true);
+            #endregion
+
+            #region Map Foreign Keys
+            #endregion
+
+            #region Map Relations
+            #endregion
+            }
     }
 }

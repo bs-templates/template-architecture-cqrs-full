@@ -3,6 +3,7 @@ using BAYSOFT.Abstractions.Core.Domain.Exceptions;
 using BAYSOFT.Abstractions.Crosscutting.Helpers;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -12,30 +13,35 @@ using ModelWrapper.Extensions.Select;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
 {
-    public class GetSampleByIdQuery : ApplicationRequest<Sample, GetSampleByIdQueryResponse>
+    public sealed class GetSampleByIdQuery : ApplicationRequest<Sample, GetSampleByIdQueryResponse>
     {
         public GetSampleByIdQuery()
         {
             ConfigKeys(x => x.Id);
 
-            // Configures supressed properties & response properties
-            //ConfigSuppressedProperties(x => x);
-            //ConfigSuppressedResponseProperties(x => x);  
+            ConfigSuppressedProperties(x => x.Id);
+
+            // TODO: SUPPRESSED RESPONSE PROPERTIES
+
+            Validator.RuleFor(x => x.Id).NotEmpty().WithMessage("{0} is required!");
         }
     }
+
     public class GetSampleByIdQueryResponse : ApplicationResponse<Sample>
     {
-        public GetSampleByIdQueryResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple) : base(tuple)
+    public GetSampleByIdQueryResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple)
+            : base(tuple)
         {
         }
 
-        public GetSampleByIdQueryResponse(WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
-            : base(request, data, message, resultCount)
+        public GetSampleByIdQueryResponse(int statusCode, WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
+            : base(statusCode, request, data, message, resultCount)
         {
         }
     }
@@ -76,7 +82,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
                     throw new EntityNotFoundException<Sample>(Localizer);
                 }
 
-                return new GetSampleByIdQueryResponse(request, data, Localizer["Successful operation!"], resultCount);
+                return new GetSampleByIdQueryResponse((int)HttpStatusCode.OK, request, data, Localizer["Successful operation!"], resultCount);
             }
             catch (Exception exception)
             {

@@ -44,7 +44,7 @@ namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Co
 
 				var result = await handler.Handle(command, default);
 
-				Assert.AreEqual((long)HttpStatusCode.OK, result.StatusCode);
+				Assert.AreEqual((long)HttpStatusCode.Created, result.StatusCode);
 			}
 		}
 	}
