@@ -36,4 +36,8 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BAYSOFT.Abstractions" Version="10.0.1.2" />
+  </ItemGroup>
+
 </Project>
