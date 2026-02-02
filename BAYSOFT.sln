@@ -39,9 +39,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentations", "Presentati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B0A46CA-CE06-4844-8158-D03CA4B11720}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAYSOFT.Tests", "src\BAYSOFT.Tests\BAYSOFT.Tests.csproj", "{80F0A391-1A96-4709-B013-9FB4E473D008}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Tests", "src\BAYSOFT.Tests\BAYSOFT.Tests.csproj", "{80F0A391-1A96-4709-B013-9FB4E473D008}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Presentations.API", "src\BAYSOFT.Presentations.API\BAYSOFT.Presentations.API.csproj", "{A8716F9D-1355-402F-8E46-8B26BFD8331B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Presentations.Web.Api", "src\BAYSOFT.Presentations.Web.Api\BAYSOFT.Presentations.Web.Api.csproj", "{A8716F9D-1355-402F-8E46-8B26BFD8331B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

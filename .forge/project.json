@@ -25,5 +25,5 @@
       }
     }
   },
-  "ScaffoldExceptions": ["web"]
+  "ScaffoldExceptions": ["web.blazor", "web.react"]
 }

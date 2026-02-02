@@ -27,6 +27,7 @@
     <ProjectReference Include="..\BAYSOFT.Infrastructures.Data\BAYSOFT.Infrastructures.Data.csproj" />
     <ProjectReference Include="..\BAYSOFT.Middleware\BAYSOFT.Middleware.csproj" />
     <ProjectReference Include="..\BAYSOFT.Presentations.API\BAYSOFT.Presentations.API.csproj" />
+    <ProjectReference Include="..\BAYSOFT.Presentations.Web.Api\BAYSOFT.Presentations.Web.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>

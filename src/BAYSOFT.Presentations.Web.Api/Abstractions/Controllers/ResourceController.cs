@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ModelWrapper;
 
-namespace BAYSOFT.Presentations.API.Abstractions.Controllers
+namespace BAYSOFT.Presentations.Web.Api.Abstractions.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
