@@ -10,17 +10,17 @@ namespace BAYSOFT.Presentations.API.Abstractions.Controllers
 	[ApiController]
 	public class ResourceController : ControllerBase
 	{
-		private IMediator _mediator;
-		protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+		private IMediator? _mediator;
+		protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;
 		public async Task<ActionResult<TResponse>> Send<TEntity, TResponse>(ApplicationRequest<TEntity, TResponse> request, CancellationToken cancellationToken = default(CancellationToken))
-			where TEntity : DomainEntity
+			where TEntity : DomainEntityBase
 			where TResponse : ApplicationResponse<TEntity>
 		{
 			return WrapResult(await Mediator.Send(request, cancellationToken));
 		}
 
 		public async Task<TResponse> SendRequest<TEntity, TResponse>(ApplicationRequest<TEntity, TResponse> request, CancellationToken cancellationToken = default(CancellationToken))
-			where TEntity : DomainEntity
+			where TEntity : DomainEntityBase
 			where TResponse : ApplicationResponse<TEntity>
 		{
 			return await Mediator.Send(request, cancellationToken);

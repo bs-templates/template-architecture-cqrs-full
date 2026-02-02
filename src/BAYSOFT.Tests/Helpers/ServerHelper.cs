@@ -18,7 +18,7 @@ namespace BAYSOFT.Tests.Helpers
 
 		public static TestServer SetupData<TContext, TEntity>(this TestServer server, IEnumerable<TEntity> entities)
 			where TContext : DbContext
-			where TEntity : DomainEntity
+			where TEntity : DomainEntityBase
 		{
 			var context = server.Services.GetService<TContext>();
 
