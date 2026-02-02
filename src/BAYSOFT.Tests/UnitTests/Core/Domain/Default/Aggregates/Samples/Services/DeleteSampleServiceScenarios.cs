@@ -1,4 +1,5 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
+﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.DomainValidations;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.EntityValidations;
 using BAYSOFT.Infrastructures.Data.Default;
@@ -21,7 +22,7 @@ namespace BAYSOFT.Tests.UnitTests.Core.Domain.Default.Aggregates.Samples.Service
 				var reader = new DefaultDbContextReader(context);
 				var writer = new DefaultDbContextWriter(context);
 
-				var localizer = GenericHelper.CreateLocalizer<DeleteSampleServiceRequestHandler>();
+				var localizer = GenericHelper.CreateLocalizer<Sample>();
 
 				var validator = new SampleValidator();
 

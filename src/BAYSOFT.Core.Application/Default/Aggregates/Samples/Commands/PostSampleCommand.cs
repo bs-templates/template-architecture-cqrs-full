@@ -1,13 +1,9 @@
 using BAYSOFT.Abstractions.Core.Application;
 using BAYSOFT.Abstractions.Crosscutting.Helpers;
-using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
 using BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Resources;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
-using BAYSOFT.Core.Domain.Default.Resources;
-using BAYSOFT.Core.Domain.Resources;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -42,10 +38,6 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
         {
         }
     }
-
-    [InheritStringLocalizer(typeof(Messages), Priority = 0)]
-    [InheritStringLocalizer(typeof(EntitiesDefault), Priority = 1)]
-    [InheritStringLocalizer(typeof(EntitiesSamples), Priority = 2)]
     public class PostSampleCommandHandler : ApplicationRequestHandler<Sample, PostSampleCommand, PostSampleCommandResponse>
     {
         private ILoggerFactory Logger { get; set; }
@@ -55,7 +47,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
         public PostSampleCommandHandler(
             ILoggerFactory logger,
             IMediator mediator,
-            IStringLocalizer<PostSampleCommandHandler> localizer,
+            IStringLocalizer<Sample> localizer,
             IDefaultDbContextWriter writer
         )
         {

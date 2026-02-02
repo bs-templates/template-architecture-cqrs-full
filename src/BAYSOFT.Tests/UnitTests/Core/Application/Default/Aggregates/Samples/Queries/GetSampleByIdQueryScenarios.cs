@@ -1,4 +1,5 @@
 ﻿using BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries;
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Infrastructures.Data.Default;
 using BAYSOFT.Tests.Helpers;
 using BAYSOFT.Tests.Helpers.Data.Default;
@@ -26,7 +27,7 @@ namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Qu
 
 				var mockedMediator = new Mock<IMediator>();
 
-				var localizer = GenericHelper.CreateLocalizer<GetSampleByIdQueryHandler>();
+				var localizer = GenericHelper.CreateLocalizer<Sample>();
 
 				var handler = new GetSampleByIdQueryHandler(
 					mockedLogger.Object,
