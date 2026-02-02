@@ -22,14 +22,14 @@ namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EntitiesSamples {
+    public class EntitySamples {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EntitiesSamples() {
+        internal EntitySamples() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BAYSOFT.Core.Domain.Default.Samples.Resources.EntitiesSamples", typeof(EntitiesSamples).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BAYSOFT.Core.Domain.Default.Samples.Resources.EntitySamples", typeof(EntitySamples).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
