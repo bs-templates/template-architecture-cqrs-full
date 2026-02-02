@@ -21,7 +21,6 @@ namespace BAYSOFT.Infrastructures.Data.Default.EntityMappings
                 .HasColumnType("UNIQUEIDENTIFIER")
                 .HasColumnName("Id")
                 .ValueGeneratedOnAdd()
-                .UseIdentityColumn()
                 .IsRequired(true);
 
             builder
