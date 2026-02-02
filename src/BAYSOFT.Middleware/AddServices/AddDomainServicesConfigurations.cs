@@ -1,5 +1,6 @@
-﻿using BAYSOFT.Core.Domain.Interfaces.Infrastructures.Services;
-using BAYSOFT.Infrastructures.Services;
+
+using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
+using BAYSOFT.Core.Domain.Interfaces.Infrastructures.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BAYSOFT.Middleware.AddServices
@@ -8,9 +9,10 @@ namespace BAYSOFT.Middleware.AddServices
     {
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
 		{
-			services.AddTransient<IMailService, MailService>();
+			// Add services
+            // services.AddTransient<IMailService, MailService>();
 
-			return services;
-		}
-    }
+	        return services;
+	    }
+	}
 }

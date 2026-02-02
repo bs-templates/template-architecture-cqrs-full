@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Exceptions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BAYSOFT.Shared\BAYSOFT.Shared.csproj" />
   </ItemGroup>
 
@@ -33,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <PackageReference Include="BAYSOFT.Abstractions" Version="10.0.1.2" />
   </ItemGroup>
 
 </Project>

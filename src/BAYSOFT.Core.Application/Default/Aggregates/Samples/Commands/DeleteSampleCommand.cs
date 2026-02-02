@@ -5,6 +5,7 @@ using BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -12,33 +13,35 @@ using Microsoft.Extensions.Logging;
 using ModelWrapper;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 {
-	public class DeleteSampleCommand : ApplicationRequest<Sample, DeleteSampleCommandResponse>
+    public sealed class DeleteSampleCommand : ApplicationRequest<Sample, DeleteSampleCommandResponse>
     {
         public DeleteSampleCommand()
         {
             ConfigKeys(x => x.Id);
 
-            // Configures supressed properties & response properties
-            //ConfigSuppressedProperties(x => x);
-            //ConfigSuppressedResponseProperties(x => x);
+            ConfigSuppressedProperties(x => x.Id);
+
+            // TODO: SUPPRESSED RESPONSE PROPERTIES
+
+            Validator.RuleFor(x => x.Id).NotEmpty().WithMessage("{0} is required!");
         }
     }
+
     public class DeleteSampleCommandResponse : ApplicationResponse<Sample>
     {
-        public DeleteSampleCommandResponse()
+        public DeleteSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple)
+            : base(tuple)
         {
         }
 
-        public DeleteSampleCommandResponse(WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null) : base(request, data, message, resultCount)
-        {
-        }
-
-        public DeleteSampleCommandResponse(Tuple<int, int, WrapRequest<Sample>, Dictionary<string, object>, Dictionary<string, object>, string, long?> tuple) : base(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6)
+        public DeleteSampleCommandResponse(int statusCode, WrapRequest<Sample> request, object data, string message = "Successful operation!", long? resultCount = null)
+            : base(statusCode, request, data, message, resultCount)
         {
         }
     }
@@ -83,7 +86,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands
 
                 await Mediator.Publish(new DeleteSampleNotification(data));
 
-                return new DeleteSampleCommandResponse(request, data, Localizer["Successful operation!"], 1);
+                return new DeleteSampleCommandResponse((int)HttpStatusCode.OK, request, data, Localizer["Successful operation!"], 1);
             }
             catch (Exception exception)
             {

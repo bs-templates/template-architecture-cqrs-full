@@ -1,8 +1,10 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +20,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications
             CreatedAt = DateTime.UtcNow;
         }
     }
+
     public class PatchSampleNotificationHandler : INotificationHandler<PatchSampleNotification>
     {
         private ILoggerFactory Logger { get; set; }
@@ -31,11 +34,8 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications
         }
         public Task Handle(PatchSampleNotification notification, CancellationToken cancellationToken)
         {
-            Logger.CreateLogger<PatchSampleNotificationHandler>().Log(LogLevel.Information, $"Sample patched! - Event Created At: {notification.CreatedAt:yyyy-MM-dd HH:mm:ss} Payload: {JsonConvert.SerializeObject(notification.Payload)}");
-
-            //var message = new Message<PatchSampleNotification>(notification);
-
-            //Mediator.Send(new RabbitMQServiceRequest("BAYSOFT_EVENTS", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message))));
+            Logger.CreateLogger<PatchSampleNotificationHandler>()
+                .Log(LogLevel.Information, $"Sample patched! - Event Created At: {notification.CreatedAt:yyyy-MM-dd HH:mm:ss} Payload: {JsonConvert.SerializeObject(notification.Payload)}");
 
             return Task.CompletedTask;
         }

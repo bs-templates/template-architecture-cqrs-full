@@ -1,0 +1,29 @@
+{
+  "SchemaVersion": "1.0",
+  "Name": "BAYSOFT",
+  "IdType": "Guid",
+  "Tab": "    ",
+  "Contexts": {
+    "Default": {
+      "Description": "Default",
+      "Entities": {
+        "Sample": {
+          "Description": null,
+          "AggregateRoot": true,
+          "Auditable": true,
+          "Properties": {
+            "Description": {
+              "Type": "string",
+              "Required": true,
+              "Length": 128,
+              "Precision": null,
+              "Scale": null
+            }
+          },
+          "Relations": {}
+        }
+      }
+    }
+  },
+  "ScaffoldExceptions": ["web"]
+}

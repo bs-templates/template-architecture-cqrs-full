@@ -1,4 +1,4 @@
-﻿using BAYSOFT.Abstractions.Core.Domain.Entities.Services;
+using BAYSOFT.Abstractions.Core.Domain.Entities.Services;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.DomainValidations;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.EntityValidations;
@@ -23,16 +23,20 @@ namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services
 			IDefaultDbContextWriter writer,
 			IStringLocalizer<Sample> localizer,
 			SampleValidator entityValidator,
-			UpdateSampleSpecificationsValidator domainValidator
-		) : base(localizer, entityValidator, domainValidator)
+			UpdateSampleSpecificationsValidator domainValidator)
+			: base(localizer, entityValidator, domainValidator)
 		{
 			Writer = writer;
 		}
-		public override async Task<Sample> Handle(UpdateSampleServiceRequest request, CancellationToken cancellationToken)
+		public override async Task<Sample> Handle(
+			UpdateSampleServiceRequest request,
+			CancellationToken cancellationToken)
 		{
 			ValidateEntity(request.Payload);
 
 			ValidateDomain(request.Payload);
+
+			// Do the update
 
 			return request.Payload;
 		}

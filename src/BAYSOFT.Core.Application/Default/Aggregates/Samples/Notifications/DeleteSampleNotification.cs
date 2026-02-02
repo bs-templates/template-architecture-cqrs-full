@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
-using MediatR;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+using System.Threading.Tasks;
 
 namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications
 {
@@ -18,11 +20,11 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications
             CreatedAt = DateTime.UtcNow;
         }
     }
+
     public class DeleteSampleNotificationHandler : INotificationHandler<DeleteSampleNotification>
     {
         private ILoggerFactory Logger { get; set; }
         private IMediator Mediator { get; set; }
-
         public DeleteSampleNotificationHandler(
             ILoggerFactory logger,
             IMediator mediator)
@@ -32,11 +34,8 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications
         }
         public Task Handle(DeleteSampleNotification notification, CancellationToken cancellationToken)
         {
-            Logger.CreateLogger<DeleteSampleNotificationHandler>().Log(LogLevel.Information, $"Sample posted! - Event Created At: {notification.CreatedAt:yyyy-MM-dd HH:mm:ss} Payload: {JsonConvert.SerializeObject(notification.Payload)}");
-
-            //var message = new Message<DeleteSampleNotification>(notification);
-
-            //Mediator.Send(new RabbitMQServiceRequest("BAYSOFT_EVENTS", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message))));
+            Logger.CreateLogger<DeleteSampleNotificationHandler>()
+                .Log(LogLevel.Information, $"Sample deleted! - Event Created At: {notification.CreatedAt:yyyy-MM-dd HH:mm:ss} Payload: {JsonConvert.SerializeObject(notification.Payload)}");
 
             return Task.CompletedTask;
         }

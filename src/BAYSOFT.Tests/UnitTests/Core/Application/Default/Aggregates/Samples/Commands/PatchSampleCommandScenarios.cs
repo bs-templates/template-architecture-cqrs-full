@@ -39,7 +39,7 @@ namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Co
 
 				command.Project(model =>
 				{
-					model.Id = 1;
+					model.Id = SamplesCollections.FromInt(1);
 					model.Description = "Sample - 001 [patch]";
 				});
 
