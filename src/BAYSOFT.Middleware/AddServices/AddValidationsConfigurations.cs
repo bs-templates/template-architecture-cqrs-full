@@ -1,4 +1,5 @@
 
+using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Specifications;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.DomainValidations;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.EntityValidations;
 using BAYSOFT.Core.Domain.Interfaces.Infrastructures.Services;
@@ -11,7 +12,7 @@ namespace BAYSOFT.Middleware.AddServices
         public static IServiceCollection AddSpecifications(this IServiceCollection services)
 		{
 			// Add Specifications
-			// services.AddTransient<SampleDescriptionAlreadyExistsSpecification>();
+			services.AddTransient<SampleDescriptionAlreadyExistsSpecification>();
 
 			return services;
         }
