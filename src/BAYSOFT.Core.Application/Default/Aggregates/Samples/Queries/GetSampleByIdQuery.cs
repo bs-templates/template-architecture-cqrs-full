@@ -1,12 +1,8 @@
 using BAYSOFT.Abstractions.Core.Application;
 using BAYSOFT.Abstractions.Core.Domain.Exceptions;
 using BAYSOFT.Abstractions.Crosscutting.Helpers;
-using BAYSOFT.Abstractions.Crosscutting.InheritStringLocalization;
 using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Resources;
 using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
-using BAYSOFT.Core.Domain.Default.Resources;
-using BAYSOFT.Core.Domain.Resources;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -43,10 +39,6 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
         {
         }
     }
-
-    [InheritStringLocalizer(typeof(Messages), Priority = 0)]
-    [InheritStringLocalizer(typeof(ContextDefault), Priority = 1)]
-    [InheritStringLocalizer(typeof(EntitySamples), Priority = 2)]
     public class GetSampleByIdQueryHandler : ApplicationRequestHandler<Sample, GetSampleByIdQuery, GetSampleByIdQueryResponse>
     {
         private ILoggerFactory Logger { get; set; }
@@ -56,7 +48,7 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
         public GetSampleByIdQueryHandler(
             ILoggerFactory logger,
             IMediator mediator,
-            IStringLocalizer<GetSampleByIdQueryHandler> localizer,
+            IStringLocalizer<Sample> localizer,
             IDefaultDbContextReader reader
         )
         {
