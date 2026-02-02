@@ -45,8 +45,8 @@ namespace BAYSOFT.Core.Application.Default.Aggregates.Samples.Queries
     }
 
     [InheritStringLocalizer(typeof(Messages), Priority = 0)]
-    [InheritStringLocalizer(typeof(EntitiesDefault), Priority = 1)]
-    [InheritStringLocalizer(typeof(EntitiesSamples), Priority = 2)]
+    [InheritStringLocalizer(typeof(ContextDefault), Priority = 1)]
+    [InheritStringLocalizer(typeof(EntitySamples), Priority = 2)]
     public class GetSampleByIdQueryHandler : ApplicationRequestHandler<Sample, GetSampleByIdQuery, GetSampleByIdQueryResponse>
     {
         private ILoggerFactory Logger { get; set; }

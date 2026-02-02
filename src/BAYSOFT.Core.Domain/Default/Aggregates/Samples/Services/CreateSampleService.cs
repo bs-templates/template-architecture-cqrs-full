@@ -20,8 +20,8 @@ namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services
 		}
 	}
 	[InheritStringLocalizer(typeof(Messages), Priority = 0)]
-	[InheritStringLocalizer(typeof(EntitiesDefault), Priority = 1)]
-	[InheritStringLocalizer(typeof(EntitiesSamples), Priority = 2)]
+	[InheritStringLocalizer(typeof(ContextDefault), Priority = 1)]
+	[InheritStringLocalizer(typeof(EntitySamples), Priority = 2)]
 	public class CreateSampleServiceRequestHandler
 		: DomainServiceRequestHandler<Sample, CreateSampleServiceRequest>
 	{

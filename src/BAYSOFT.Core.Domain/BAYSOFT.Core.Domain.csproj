@@ -9,10 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Default\Resources\EntitiesDefault.Designer.cs">
+    <Compile Update="Default\Resources\ContextDefault.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>EntitiesDefault.resx</DependentUpon>
+      <DependentUpon>ContextDefault.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Messages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Default\Resources\EntitiesDefault.resx">
+    <EmbeddedResource Update="Default\Resources\ContextDefault.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EntitiesDefault.Designer.cs</LastGenOutput>
+      <LastGenOutput>ContextDefault.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
