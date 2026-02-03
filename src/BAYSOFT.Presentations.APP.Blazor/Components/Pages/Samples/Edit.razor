@@ -4,7 +4,7 @@
 @using ModelWrapper.Extensions.GetModel
 @using MediatR
 
-@page "/samples/{id:int}"
+@page "/samples/{id:Guid}"
 @rendermode InteractiveServer
 @inject IMediator mediator
 @inject NavigationManager Navigation
@@ -37,7 +37,7 @@
 
 @code {
     [Parameter]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     GetSampleByIdQuery query = new GetSampleByIdQuery();
     SampleForm model = new SampleForm();
@@ -45,7 +45,7 @@
 
     public class SampleForm
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "{0} é obrigatório!")]
         public string? Description { get; set; }
     }

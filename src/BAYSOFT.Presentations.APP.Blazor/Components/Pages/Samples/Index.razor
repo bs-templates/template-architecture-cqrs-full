@@ -15,7 +15,7 @@
 @inject IMediator Mediator
 
 <MudTable
-	ServerData="@(new Func<TableState, Task<TableData<Sample>>>(ServerReload))" @ref="table"
+	ServerData="@(new Func<TableState, CancellationToken, Task<TableData<Sample>>>(ServerReload))" @ref="table"
 	FixedHeader="@fixed_header" FixedFooter="@fixed_footer" Height="@(fixed_header || fixed_footer ?"627px":"")"
 		  MultiSelection="@multi_select" @bind-SelectedItems="selectedItems" @bind-SelectOnRowClick="@select_on_row_click"
 	Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped">
@@ -78,7 +78,7 @@
 	/// <summary>
 	/// Here we simulate getting the paged, filtered and ordered data from the server
 	/// </summary>
-	private async Task<TableData<Sample>> ServerReload(TableState state)
+	private async Task<TableData<Sample>> ServerReload(TableState state, CancellationToken cancellation)
 	{
 		if (!string.IsNullOrWhiteSpace(search))
 			query.SetSearch(search);
@@ -88,7 +88,7 @@
 		query.SetOrdination(state.SortDirection.ToDescriptionString(), state.SortLabel);
 		query.SetPagination(state.PageSize, state.Page + 1);
 
-		var response = await Mediator.Send(query);
+		var response = await Mediator.Send(query, cancellation);
 
 		selectedItems = new HashSet<Sample>();
 
@@ -119,7 +119,7 @@
 		parameters.Add(x => x.ButtonConfirmText, "Delete");
 		parameters.Add(x => x.Color, Color.Error);
 
-		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, ClassBackground = "dialog-backdrop-blur" };
+		var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
 
 		var dialog = await DialogService.ShowAsync<Dialog>("Delete", parameters, options);
 		var result = await dialog.Result;

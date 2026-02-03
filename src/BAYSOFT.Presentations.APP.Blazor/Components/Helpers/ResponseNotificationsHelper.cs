@@ -1,37 +1,54 @@
 ﻿using BAYSOFT.Abstractions.Core.Application;
 using BAYSOFT.Abstractions.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using ModelWrapper.Extensions.Notifications;
-using MudBlazor;
+using ModelWrapper.Extensions.GetNotifications;
 using System.Net;
 
 namespace BAYSOFT.Presentations.APP.Blazor.Components.Helpers
 {
 	public static class ResponseNotificationsHelper
 	{
-		public static bool HandleNotifications<T>(this ApplicationResponse<T> response, [FromServices] ISnackbar Snackbar, bool notifyOnSuccess = true) where T : DomainEntity
+		public static bool HandleNotifications<T>(this ApplicationResponse<T> response, [FromServices] ISnackbar Snackbar, bool notifyOnSuccess = true) where T : DomainEntityBase
 		{
 			if (response != null)
 			{
-				if (response.StatusCode == ((int)HttpStatusCode.OK))
+				var successStatusCodes = new List<int>
 				{
-					if(notifyOnSuccess)
+					(int)HttpStatusCode.OK,
+					(int)HttpStatusCode.Created,
+					(int)HttpStatusCode.Accepted,
+					(int)HttpStatusCode.NoContent
+				};
+
+				if (successStatusCodes.Any(code => code == response.StatusCode))
+				{
+					if (notifyOnSuccess)
 						Snackbar.Add(response.Message, Severity.Success);
 					return true;
 				}
 				else
 				{
 					Snackbar.Add(response.Notifications.GetMessage(), Severity.Warning);
-					// if(response.Notifications.HasRequest())
-					//     foreach (var requestNotifications in response.Notifications.GetRequest().Values))
-					//     {
-					//         Snackbar.Add(requestNotifications);
-					//     }
-					// if(response.Notifications.HasEntity())
-					//     foreach (var entityNotifications in ((string[])response.Notifications.GetDomain().Values))
-					//     {
-					//         Snackbar.Add(entityNotifications);
-					//     }
+					if (response.Notifications.HasRequest())
+						foreach (var requestNotifications in response.Notifications.GetRequest())
+						{
+							Snackbar.Add(requestNotifications.Value.ToString(), Severity.Warning);
+						}
+					if (response.Notifications.HasEntity())
+						foreach (var entityNotifications in response.Notifications.GetEntity())
+						{
+							if (entityNotifications.Value is string message)
+							{
+								Snackbar.Add(message, Severity.Warning);
+							}
+							if (entityNotifications.Value is string[] messages)
+							{
+								foreach (var m in messages)
+								{
+									Snackbar.Add(m, Severity.Warning);
+								}
+							}
+						}
 					if (response.Notifications.HasDomain())
 						foreach (var domainNotifications in response.Notifications.GetDomain())
 						{
