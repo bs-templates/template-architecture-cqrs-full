@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelWrapper.Extensions.GetNotifications;
 using System.Net;
 
-namespace BAYSOFT.Presentations.APP.Blazor.Components.Helpers
+namespace BAYSOFT.Presentations.Web.Blazor.Components.Helpers
 {
 	public static class ResponseNotificationsHelper
 	{

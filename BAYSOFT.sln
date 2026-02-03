@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B0A46CA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAYSOFT.Tests", "src\BAYSOFT.Tests\BAYSOFT.Tests.csproj", "{80F0A391-1A96-4709-B013-9FB4E473D008}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAYSOFT.Presentations.APP.Blazor", "src\BAYSOFT.Presentations.APP.Blazor\BAYSOFT.Presentations.APP.Blazor.csproj", "{8192DB7E-55C2-4B15-BB86-BA33491687DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAYSOFT.Presentations.Web.Blazor", "src\BAYSOFT.Presentations.Web.Blazor\BAYSOFT.Presentations.Web.Blazor.csproj", "{8192DB7E-55C2-4B15-BB86-BA33491687DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

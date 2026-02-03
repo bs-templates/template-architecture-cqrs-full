@@ -1,5 +1,5 @@
 using BAYSOFT.Middleware;
-using BAYSOFT.Presentations.APP.Blazor.Components;
+using BAYSOFT.Presentations.Web.Blazor.Components;
 using MudBlazor;
 using MudBlazor.Services;
 
