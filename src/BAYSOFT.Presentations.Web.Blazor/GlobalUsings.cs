@@ -1,14 +1,4 @@
-﻿global using System.Net.Http;
-global using System.Net.Http.Json;
-global using MediatR;
-global using Microsoft.AspNetCore.Components.Forms;
-global using Microsoft.AspNetCore.Components.Routing;
-global using Microsoft.AspNetCore.Components.Web;
-global using static Microsoft.AspNetCore.Components.Web.RenderMode;
-global using Microsoft.AspNetCore.Components.Web.Virtualization;
-global using Microsoft.JSInterop;
-global using BAYSOFT.Presentations.Web.Blazor;
-global using BAYSOFT.Presentations.Web.Blazor.Components;
-global using BAYSOFT.Presentations.Web.Blazor.Components.Dialogs;
+﻿global using BAYSOFT.Presentations.Web.Blazor.Components;
 global using BAYSOFT.Presentations.Web.Blazor.Components.Helpers;
+global using Microsoft.JSInterop;
 global using MudBlazor;

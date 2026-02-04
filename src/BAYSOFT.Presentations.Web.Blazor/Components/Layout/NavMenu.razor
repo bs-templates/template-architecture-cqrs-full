@@ -4,23 +4,11 @@
 			Dashboard
 		</MudListItem>
 		<MudDivider />
-		<MudListItem T="string" Href="/samples" Match="NavLinkMatch.Prefix">
-			Samples
-		</MudListItem>
-		<MudDivider />
-		<MudListItem T="string" Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudListItem>
-		<MudDivider />
-		<MudListItem T="string" Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudListItem>
-		<MudDivider />
-		<MudListItem T="string" Text="Settings" InitiallyExpanded="false">
+		<MudListItem Text="Default" Expanded>
 			<NestedList>
 				<MudDivider />
-				<MudListItem T="string" Href="/users" Match="NavLinkMatch.Prefix">Users</MudListItem>
-				<MudDivider />
-				<MudListItem T="string" Href="/security" Match="NavLinkMatch.Prefix">Security</MudListItem>
+				<MudListItem Href="/default/samples" Match="NavLinkMatch.Prefix">Amostras</MudListItem>
 			</NestedList>
 		</MudListItem>
-		<MudDivider />
-		<MudListItem T="string" Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudListItem>
 	</MudList>
 </MudNavMenu>
