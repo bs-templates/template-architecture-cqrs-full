@@ -6,8 +6,8 @@ Architecture CQRS Full (.NET 8.0)
 Go to "BAYSOFT.Infrastructures.Data" project folder and open cmd
 > cd src/BAYSOFT.Infrastructures.Data
 
-Add migration ex: InitialMigrationDefaultDbContext
-> dotnet ef --startup-project ../BAYSOFT.Presentations.API migrations add [Name of the migration]DefaultDbContext -c DefaultDbContext -o Default/Migrations
+Add migration ex: InitialMigration
+> dotnet ef --startup-project ../BAYSOFT.Presentations.Web.Api migrations add [Name of the migration] -c DefaultDbContext -o Default/Migrations
 
 
 #### dotnet-ef install

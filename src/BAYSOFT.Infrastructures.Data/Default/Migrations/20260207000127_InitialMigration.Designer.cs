@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BAYSOFT.Infrastructures.Data.Default.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20260202072340_InitialMigrationDefaultDbContext")]
-    partial class InitialMigrationDefaultDbContext
+    [Migration("20260207000127_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

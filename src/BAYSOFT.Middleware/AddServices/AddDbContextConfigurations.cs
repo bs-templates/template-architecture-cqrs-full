@@ -32,7 +32,8 @@ namespace BAYSOFT.Middleware.AddServices
                         sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                     }));
             #endregion
-			return services;
+			
+            return services;
 		}
 		public static IServiceCollection AddDbContextsTest(this IServiceCollection services, IConfiguration configuration)
 		{
@@ -44,7 +45,6 @@ namespace BAYSOFT.Middleware.AddServices
                 options.UseInMemoryDatabase(nameof(DefaultDbContext), new InMemoryDatabaseRoot()),
                 ServiceLifetime.Singleton);
             #endregion
-
 
 			return services;
 		}

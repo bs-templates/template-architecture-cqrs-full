@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BAYSOFT.Infrastructures.Data.Default.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrationDefaultDbContext : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

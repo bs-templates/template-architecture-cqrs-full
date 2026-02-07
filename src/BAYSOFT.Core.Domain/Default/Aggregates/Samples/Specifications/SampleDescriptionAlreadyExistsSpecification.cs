@@ -13,6 +13,7 @@ namespace BAYSOFT.Core.Domain.Default.Aggregates.Samples.Specifications
         public SampleDescriptionAlreadyExistsSpecification(IDefaultDbContextReader reader)
         {
             Reader = reader;
+            SpecificationMessage = "Já existe um registro com essa descrição!";
         }
 
         public override Expression<Func<Sample, bool>> ToExpression()
