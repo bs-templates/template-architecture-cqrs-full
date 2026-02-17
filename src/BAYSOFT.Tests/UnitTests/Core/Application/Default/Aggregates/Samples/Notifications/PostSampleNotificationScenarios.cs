@@ -1,11 +1,11 @@
-﻿using BAYSOFT.Core.Application.Default.Aggregates.Samples.Notifications;
+﻿using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Notifications;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.Default;
-using BAYSOFT.Tests.Helpers.Data.Default.Samples;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
 using MediatR;
 using Moq;
 
-namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Notifications
+namespace BAYSOFT.Tests.UnitTests.Core.Application.DefaultDb.Entities.Samples.Notifications
 {
 	[TestClass]
 	public class PostSampleNotificationScenarios

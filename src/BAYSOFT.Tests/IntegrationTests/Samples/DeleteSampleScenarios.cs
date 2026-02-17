@@ -1,7 +1,7 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Infrastructures.Data.Default;
+﻿using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
+using BAYSOFT.Infrastructures.Data.DefaultDb;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.Default.Samples;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
 using System.Net;
 
 namespace BAYSOFT.Tests.IntegrationTests.Samples

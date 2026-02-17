@@ -1,6 +1,6 @@
 
-using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
-using BAYSOFT.Infrastructures.Data.Default;
+using BAYSOFT.Core.Domain.DefaultDb.Interfaces.Infrastructures.Data;
+using BAYSOFT.Infrastructures.Data.DefaultDb;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

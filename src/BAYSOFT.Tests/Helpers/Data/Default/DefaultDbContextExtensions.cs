@@ -1,8 +1,8 @@
-﻿using BAYSOFT.Infrastructures.Data.Default;
+﻿using BAYSOFT.Infrastructures.Data.DefaultDb;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace BAYSOFT.Tests.Helpers.Data.Default
+namespace BAYSOFT.Tests.Helpers.Data.DefaultDb
 {
 	internal static class DefaultDbContextExtensions
 	{
