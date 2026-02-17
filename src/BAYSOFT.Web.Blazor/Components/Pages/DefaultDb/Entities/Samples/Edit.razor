@@ -1,0 +1,22 @@
+@using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity
+@using BAYSOFT.Web.Blazor.Components.Pages.DefaultDb.Entities.Samples.Components
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<Sample> Localizer
+
+@page "/default/samples/{sampleId:guid}"
+
+@rendermode InteractiveServer
+
+<PageSample
+	RootEndPoint="@GetRootEndPoint()"
+	Id="SampleId">
+</PageSample>
+
+@code {
+	[Parameter] public Guid? SampleId { get; set; }
+	public string GetRootEndPoint()
+	{
+        return $"/default/samples";
+	}
+}

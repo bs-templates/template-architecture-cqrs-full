@@ -1,15 +1,15 @@
-﻿using BAYSOFT.Core.Application.Default.Aggregates.Samples.Commands;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Infrastructures.Data.Default;
+﻿using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Commands;
+using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
+using BAYSOFT.Infrastructures.Data.DefaultDb;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.Default;
-using BAYSOFT.Tests.Helpers.Data.Default.Samples;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net;
 
-namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Aggregates.Samples.Commands
+namespace BAYSOFT.Tests.UnitTests.Core.Application.DefaultDb.Entities.Samples.Commands
 {
 	[TestClass]
 	public class PatchSampleCommandScenarios

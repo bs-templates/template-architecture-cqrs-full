@@ -1,0 +1,17 @@
+@using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<Sample> SampleLocalizer
+
+<MudNavMenu Style="margin-top: 64px;">
+	<MudList T="string" Clickable="true">
+		<MudListItem T="string" Href="/" Match="NavLinkMatch.All" Style="margin: 0px;">Dashboard</MudListItem>
+			<MudDivider />
+			<MudListItem Text="Default" Expanded>
+				<NestedList>
+						<MudDivider />
+						<MudListItem Href="default/samples" Match="NavLinkMatch.Prefix">@(SampleLocalizer["Samples"])</MudListItem>
+				</NestedList>
+			</MudListItem>
+	</MudList>
+</MudNavMenu>

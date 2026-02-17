@@ -1,6 +1,6 @@
 
-using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
-using BAYSOFT.Infrastructures.Data.Default;
+using BAYSOFT.Core.Domain.DefaultDb.Interfaces.Infrastructures.Data;
+using BAYSOFT.Infrastructures.Data.DefaultDb;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -32,8 +32,7 @@ namespace BAYSOFT.Middleware.AddServices
                         sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                     }));
             #endregion
-			
-            return services;
+			return services;
 		}
 		public static IServiceCollection AddDbContextsTest(this IServiceCollection services, IConfiguration configuration)
 		{
@@ -45,6 +44,7 @@ namespace BAYSOFT.Middleware.AddServices
                 options.UseInMemoryDatabase(nameof(DefaultDbContext), new InMemoryDatabaseRoot()),
                 ServiceLifetime.Singleton);
             #endregion
+
 
 			return services;
 		}
