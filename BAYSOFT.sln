@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B0A46CA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Tests", "src\BAYSOFT.Tests\BAYSOFT.Tests.csproj", "{80F0A391-1A96-4709-B013-9FB4E473D008}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Presentations.Web.Api", "src\BAYSOFT.Presentations.Web.Api\BAYSOFT.Presentations.Web.Api.csproj", "{A8716F9D-1355-402F-8E46-8B26BFD8331B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAYSOFT.Web.Api", "src\BAYSOFT.Web.Api\BAYSOFT.Web.Api.csproj", "{A8716F9D-1355-402F-8E46-8B26BFD8331B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

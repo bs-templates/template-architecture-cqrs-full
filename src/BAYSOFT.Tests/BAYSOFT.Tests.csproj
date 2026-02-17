@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -26,8 +26,7 @@
     <ProjectReference Include="..\BAYSOFT.Core.Domain\BAYSOFT.Core.Domain.csproj" />
     <ProjectReference Include="..\BAYSOFT.Infrastructures.Data\BAYSOFT.Infrastructures.Data.csproj" />
     <ProjectReference Include="..\BAYSOFT.Middleware\BAYSOFT.Middleware.csproj" />
-    <ProjectReference Include="..\BAYSOFT.Presentations.API\BAYSOFT.Presentations.API.csproj" />
-    <ProjectReference Include="..\BAYSOFT.Presentations.Web.Api\BAYSOFT.Presentations.Web.Api.csproj" />
+    <ProjectReference Include="..\BAYSOFT.Web.Api\BAYSOFT.Web.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>

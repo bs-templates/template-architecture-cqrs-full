@@ -46,6 +46,6 @@
     }
   },
   "ScaffoldExceptions": [
-    "web"
+    "web.react", "web.blazor"
   ]
 }

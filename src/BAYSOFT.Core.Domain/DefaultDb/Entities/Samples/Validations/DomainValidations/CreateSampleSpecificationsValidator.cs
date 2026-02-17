@@ -1,6 +1,6 @@
-using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Specifications;
 using BAYSOFT.Abstractions.Core.Domain.Entities.Validations;
 using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
+using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Specifications;
 
 namespace BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Validations.DomainValidations
 {

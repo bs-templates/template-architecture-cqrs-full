@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BAYSOFT.Infrastructures.Data.Default.Migrations
+namespace BAYSOFT.Infrastructures.Data.DefaultDb.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrationDefaultDbContext : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
