@@ -1,13 +1,13 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Services;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.DomainValidations;
-using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Validations.EntityValidations;
-using BAYSOFT.Infrastructures.Data.Default;
+﻿using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
+using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Services;
+using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Validations.DomainValidations;
+using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Validations;
+using BAYSOFT.Infrastructures.Data.DefaultDb;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.Default;
-using BAYSOFT.Tests.Helpers.Data.Default.Samples;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
 
-namespace BAYSOFT.Tests.UnitTests.Core.Domain.Default.Aggregates.Samples.Services
+namespace BAYSOFT.Tests.UnitTests.Core.Domain.DefaultDb.Entities.Samples.Services
 {
 	[TestClass]
 	public class DeleteSampleServiceScenarios

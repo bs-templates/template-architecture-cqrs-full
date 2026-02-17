@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BAYSOFT.Abstractions" Version="10.0.1.2" />
+    <PackageReference Include="BAYSOFT.Abstractions" Version="10.0.3" />
   </ItemGroup>
 
 </Project>
