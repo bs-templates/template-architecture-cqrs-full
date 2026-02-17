@@ -1,6 +1,6 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
-using BAYSOFT.Tests.Helpers.Data.Default;
-using BAYSOFT.Tests.Helpers.Data.Default.Samples;
+﻿using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb;
+using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
 
 namespace BAYSOFT.Tests.UnitTests.Infrastructures.Data.Default
 {

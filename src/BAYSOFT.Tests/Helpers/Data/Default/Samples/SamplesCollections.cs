@@ -1,6 +1,6 @@
-﻿using BAYSOFT.Core.Domain.Default.Aggregates.Samples.Entities;
+﻿using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
 
-namespace BAYSOFT.Tests.Helpers.Data.Default.Samples
+namespace BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples
 {
 	public static class SamplesCollections
 	{

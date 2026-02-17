@@ -1,6 +1,5 @@
 
-using BAYSOFT.Core.Domain.Default.Interfaces.Infrastructures.Data;
-using BAYSOFT.Core.Domain.Interfaces.Infrastructures.Services;
+//using BAYSOFT.Core.Domain.Interfaces.Infrastructures.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BAYSOFT.Middleware.AddServices
