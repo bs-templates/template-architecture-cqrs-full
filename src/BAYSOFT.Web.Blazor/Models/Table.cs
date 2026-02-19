@@ -33,8 +33,8 @@ namespace BAYSOFT.Web.Blazor.Models
 		public string RowsPerPageString { get; set; } = "Rows per page:";
 		public string InfoFormat { get; set; } = "{first_item}-{last_item} of {all_items}";
 		public string AllItemsText { get; set; } = "All";
-        public string CollectionEndPointCreate() => $"{(!string.IsNullOrWhiteSpace(RootEndPoint) ? RootEndPoint : string.Empty)}{CollectionEndPoint}/Create";
-		public string CollectionEndPointEdit(TKey id) => $"{(!string.IsNullOrWhiteSpace(RootEndPoint) ? RootEndPoint : string.Empty)}{CollectionEndPoint}/{id}";
+        public string CollectionEndPointCreate() => $"{CollectionEndPoint}/Create";
+		public string CollectionEndPointEdit(TKey id) => $"{CollectionEndPoint}/{id}";
 		public Table()
         {
 			Headers = new List<TableHeader<TEntity>>();
