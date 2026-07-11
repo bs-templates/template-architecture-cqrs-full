@@ -1,4 +1,4 @@
-using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Queries;
+using BAYSOFT.Core.Application.Default.Samples.Queries;
 using ModelWrapper.Extensions.Filter;
 using ModelWrapper.Extensions.Ordination;
 using ModelWrapper.Extensions.Pagination;

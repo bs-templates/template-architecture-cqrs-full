@@ -1,7 +1,7 @@
-﻿using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
-using BAYSOFT.Infrastructures.Data.DefaultDb;
+﻿using BAYSOFT.Core.Domain.Default.Samples.Entity;
+using BAYSOFT.Infrastructures.Data.Default;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
+using BAYSOFT.Tests.Helpers.Data.Default.Samples;
 using Newtonsoft.Json;
 using System.Net;
 

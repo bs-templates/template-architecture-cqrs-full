@@ -1,15 +1,15 @@
-﻿using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Commands;
-using BAYSOFT.Core.Domain.DefaultDb.Entities.Samples.Entity;
-using BAYSOFT.Infrastructures.Data.DefaultDb;
+﻿using BAYSOFT.Core.Application.Default.Samples.Commands;
+using BAYSOFT.Infrastructures.Data.Default;
 using BAYSOFT.Tests.Helpers;
-using BAYSOFT.Tests.Helpers.Data.DefaultDb;
-using BAYSOFT.Tests.Helpers.Data.DefaultDb.Samples;
+using BAYSOFT.Tests.Helpers.Data.Default;
+using BAYSOFT.Tests.Helpers.Data.Default.Samples;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net;
+using BAYSOFT.Core.Domain.Default.Samples.Entity;
 
-namespace BAYSOFT.Tests.UnitTests.Core.Application.DefaultDb.Entities.Samples.Commands
+namespace BAYSOFT.Tests.UnitTests.Core.Application.Default.Samples.Commands
 {
 	[TestClass]
 	public class PostSampleCommandScenarios

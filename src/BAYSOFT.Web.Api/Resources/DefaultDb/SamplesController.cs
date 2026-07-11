@@ -1,12 +1,12 @@
-using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Commands;
-using BAYSOFT.Core.Application.DefaultDb.Entities.Samples.Queries;
+using BAYSOFT.Core.Application.Default.Samples.Commands;
+using BAYSOFT.Core.Application.Default.Samples.Queries;
 using BAYSOFT.Web.Api.Abstractions.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BAYSOFT.Web.Api.DefaultDb
+namespace BAYSOFT.Web.Api.Default
 {
     [Produces("application/json")]
     [Route("api/default/samples")]

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Default\Resources\ContextDefault.Designer.cs">
+    <Compile Update="Default\_Shared\Resources\ContextDefault.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContextDefault.resx</DependentUpon>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Default\Resources\ContextDefault.resx">
+    <EmbeddedResource Update="Default\_Shared\Resources\ContextDefault.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ContextDefault.Designer.cs</LastGenOutput>
     </EmbeddedResource>
